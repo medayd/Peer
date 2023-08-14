@@ -7,10 +7,10 @@ namespace Domain
     public interface IFizzBuzz
     {
         string CalculateResult();
-        string FizzBuzzCalculator(string[] input);
-        bool IsBuzz(int item);
-        bool IsFizz(int item);
-        string CalculatetFizzBuzz(int number);
+        //string FizzBuzzCalculator(string[] input);
+        //bool IsBuzz(int item);
+        //bool IsFizz(int item);
+        //string CalculatetFizzBuzz(int number);
 
     }
 }

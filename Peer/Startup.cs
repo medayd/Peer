@@ -7,6 +7,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,7 +28,14 @@ namespace Peer
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            services.AddTransient<IFizzBuzz, FizzBuzz>();
+            services.Configure<FizzBuzzConfiguration>(Configuration.GetSection(FizzBuzzConfiguration.SectionName));
+            services.AddTransient<IFizzBuzz, FizzBuzz>().AddHttpClient("Peer",(provider,client) =>
+            {
+                var option = provider.GetRequiredService<IOptions<FizzBuzzConfiguration>>();
+                client.BaseAddress = option.Value.BaseAdress;
+            });
+            services.AddSingleton<IFizzBuzzCalculator, FizzBuzzForTwoElements>();
+            services.AddSingleton<IFizzBuzzCalculator, FizzBuzzForThreeElements>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
