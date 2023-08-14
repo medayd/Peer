@@ -30,12 +30,12 @@ namespace Peer.Controllers
         [HttpGet]
         public  ActionResult<string> FizzBuzz()
         {
-            var rand = new Random().Next(2);
-            if (rand == 0)
+            var rand = new Random();
+            if (rand.Next(2) == 0)
             {
-                return $"{new Random().Next(100)}:{new Random().Next(100)}";
+                return $"{rand.Next(100)}:{rand.Next(100)}";
             }
-            return $"{new Random().Next(100)}:{new Random().Next(100)}:{new Random().Next(100)}";
+            return $"{rand.Next(100)}:{rand.Next(100)}:{rand.Next(100)}";
         }
     }
 }
